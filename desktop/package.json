@@ -1,0 +1,51 @@
+{
+  "name": "@paperclipai/desktop",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Paperclip desktop app — Electron shell with tray icon and a paperclipai run sidecar",
+  "main": "dist/main.js",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "start": "pnpm run build && electron .",
+    "dev": "pnpm run start",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "clean": "rm -rf dist release",
+    "dist": "pnpm run build && electron-builder --mac --publish never"
+  },
+  "build": {
+    "appId": "com.paperclipai.desktop",
+    "productName": "Paperclip",
+    "copyright": "Copyright © 2026 Paperclip",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "assets/**/*",
+      "package.json"
+    ],
+    "asar": true,
+    "mac": {
+      "category": "public.app-category.developer-tools",
+      "target": [
+        {
+          "target": "dmg",
+          "arch": ["arm64", "x64"]
+        }
+      ],
+      "identity": null,
+      "hardenedRuntime": false,
+      "gatekeeperAssess": false
+    },
+    "dmg": {
+      "title": "Paperclip"
+    }
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "^22.12.0",
+    "electron": "^33.2.1",
+    "electron-builder": "^25.1.8",
+    "typescript": "^5.7.3"
+  }
+}
